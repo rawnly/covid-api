@@ -1,0 +1,4 @@
+.now
+node_modules
+build
+*.no-git.*
