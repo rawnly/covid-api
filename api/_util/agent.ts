@@ -12,6 +12,7 @@ const ENDPOINT = `https://api.github.com/repos/pcm-dpc/COVID-19/contents`;
 
 
 const decodeBase64 = (base64: string) => Buffer.from(base64, 'base64').toString();
+const equals = (a:string, b:string) : boolean => isEqual(a.trim().toLowerCase(), b.trim().toLowerCase())
 
 export const fetchRegionsData = async (): Promise<RegionsResponse> => {
 	const response = await fetch(ENDPOINT + '/dati-json/dpc-covid19-ita-regioni.json');
@@ -37,12 +38,25 @@ export const fetchRegionData = (regionName:string) => async (): Promise<Province
 	};
 
 	for (const region in groupedByRegion) {
-		if (isEqual(region.toLowerCase(), regionName.toLowerCase()) && groupedByRegion.hasOwnProperty(region)) {
+		if (equals(region, regionName) && groupedByRegion.hasOwnProperty(region)) {
 			response = groupBy(groupedByRegion[region], 'denominazione_provincia');
 		}
 	}
 
 	return response;
+};
+
+export const fetchProvinceData = (provinceName:string) => async (): Promise<ProvinceData[]> => {
+	const response = await fetch(ENDPOINT + `/dati-json/dpc-covid19-ita-province.json`);
+	const data = await response.json();
+
+	return JSON
+		.parse(decodeBase64(data.content))
+		.filter(el => 
+			equals(`${el.codice_provincia}`, provinceName) || 
+			equals(el.sigla_provincia, provinceName) || 
+			equals(el.denominazione_provincia, provinceName)
+		);
 };
 
 export const fetchProvincesData = async (): Promise<ProvincesResponse> => {
