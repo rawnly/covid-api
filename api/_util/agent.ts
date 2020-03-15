@@ -37,7 +37,7 @@ export const fetchRegionData = (regionName:string) => async (): Promise<Province
 	};
 
 	for (const region in groupedByRegion) {
-		if (isEqual(region,regionName) && groupedByRegion.hasOwnProperty(region)) {
+		if (isEqual(region.toLowerCase(), regionName.toLowerCase()) && groupedByRegion.hasOwnProperty(region)) {
 			response = groupBy(groupedByRegion[region], 'denominazione_provincia');
 		}
 	}
