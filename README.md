@@ -2,25 +2,25 @@
 Un semplice servizio REST per monitorare i dati forniti dal Ministero Della Salute
 
 ## Endpoints
-- /api
+- `/api`
     - Restituisce i dati a livello nazionale
 
-- /api/regions
+- `/api/regions`
     - Restituisce i dati raggruppati per regione
 
-- /api/regions/<nome_regione|codice_regione>
+- `/api/regions/<nome_regione|codice_regione>`
     - Dettaglio Regione
     
-- /api/regions/<nome_regione|codice_regione>/province
+- `/api/regions/<nome_regione|codice_regione>/province`
     - Province raggruppate per regione
 
-- /api/regions/<nome_regione|codice_regione>/province/<nome_provincia|codice_provincia|sigla_provincia>
+- `/api/regions/<nome_regione|codice_regione>/province/<nome_provincia|codice_provincia|sigla_provincia>`
     - Dettaglio Provincia
 
-- /api/province
+- `/api/province`
     - Dati province raggruppati per provincia
 
-- /api/province/<nome_provincia|codice_provincia|sigla_provincia>
+- `/api/province/<nome_provincia|codice_provincia|sigla_provincia>`
     - Dettaglio Provincia
 
 ## Nota
