@@ -29,7 +29,7 @@ export const fetchRegionData = (regionName:string) => async (): Promise<Province
 
 	let content: ProvinceData[] = JSON.parse(decodeBase64(data.content));
 	content = content.filter((item) => item.denominazione_provincia !== 'In fase di definizione/aggiornamento');
-	const groupedByRegion: any = groupBy(content, 'denominazione_regione');
+	const regionData = content.filter(el => equals(el.denominazione_regione, regionName) || equals(`${el.codice_regione}`, regionName));
 
 	let response: any = {
 		status: 404,
@@ -37,11 +37,10 @@ export const fetchRegionData = (regionName:string) => async (): Promise<Province
 		message: 'Region not found'
 	};
 
-	for (const region in groupedByRegion) {
-		if (equals(region, regionName) && groupedByRegion.hasOwnProperty(region)) {
-			response = groupBy(groupedByRegion[region], 'denominazione_provincia');
-		}
+	if (regionData.length) {
+		response = regionData
 	}
+
 
 	return response;
 };
